@@ -3,4 +3,6 @@
     top: 0;
     bottom: 0;
     left: 0;
+    width: 16.666667%;  /* col-2 */
+    z-index: 1031; /* [bs]$zindex-fixed + 1 */
 }

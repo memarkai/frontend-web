@@ -1,6 +1,11 @@
 <div class="full-screen container-fluid">
     <div class="row">
-        <app-sidenav></app-sidenav>
-
+        <div class="col-sm-2">
+            <app-sidenav></app-sidenav>
+        </div>
+        <div class="col-sm-10">
+            <app-topbar></app-topbar>
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>
