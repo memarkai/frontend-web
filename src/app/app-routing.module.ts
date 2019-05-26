@@ -7,11 +7,10 @@ import { ChatComponent } from './chat/chat.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 
 const routes: Routes = [
-  {path: 'clinic', component: HomeComponent},
   {path: 'calendar', component: CalendarComponent},
   {path: 'chats', component: ChatComponent},
   {path: 'settings', component: PreferencesComponent},
-  {path: '', redirectTo: '/clinic', pathMatch: 'full'}
+  {path: '', component: HomeComponent}
 ];
 
 @NgModule({
