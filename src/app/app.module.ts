@@ -7,14 +7,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { TopbarComponent } from './topbar/topbar.component';
-import { ClinicComponent } from './clinic/clinic.component';
+import { HomeComponent } from './home/home.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { ChatComponent } from './chat/chat.component';
+import { PreferencesComponent } from './preferences/preferences.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidenavComponent,
     TopbarComponent,
-    ClinicComponent,
+    HomeComponent,
+    CalendarComponent,
+    ChatComponent,
+    PreferencesComponent,
   ],
   imports: [
     BrowserModule,
