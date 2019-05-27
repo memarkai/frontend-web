@@ -18,6 +18,14 @@ export class HomeComponent implements OnInit {
       paymentMethod: 'Plano Amil Dental',
       date: 'Segunda, 27/05 às 14:00',
     },
+    {
+      expireTime: 32,
+      patientName: 'Ana Maria',
+      patientAge: 36,
+      specialty: 'Odontologia',
+      paymentMethod: 'Plano Amil Dental',
+      date: 'Terça, 28/05 às 10:00',
+    },
   ];
 
   constructor() { }
