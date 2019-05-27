@@ -1,0 +1,38 @@
+.flex-cards {
+    display: flex;
+    flex-flow: row nowrap;
+    overflow-x: hidden;
+}
+
+.flex-cards > .item {
+    width: 320px;
+    padding: 16px;
+}
+
+.card {
+    padding: 4px;
+}
+
+.card-img {
+    border-radius: 0;
+}
+
+.expire-time-font-size {
+    font-size: 0.75em;
+}
+
+.name-tag {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    color: white;
+    text-align: center;
+}
+
+.action-toolbar > button {
+    width: 6em;
+}
+
+.flex-cards .card-text {
+    margin: 0.75em 0;
+}
