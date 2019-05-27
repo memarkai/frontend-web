@@ -17,3 +17,11 @@ a:hover {
 div.nav-divisor {
     border: 1px solid #59abb2;
 }
+div.nav-logo {
+    background-image: url('/assets/markai.png');
+    background-repeat: no-repeat;
+    background-position: center center; 
+    background-size: cover;
+    width: 100%;
+    height: 60px;
+}
