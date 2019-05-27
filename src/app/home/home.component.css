@@ -5,20 +5,34 @@
 }
 
 .flex-cards > .item {
-    width: 320px;
+    width: 216px;
     padding: 16px;
+}
+
+button.btn {
+    padding:0px !important;
+    width: 4em !important;
 }
 
 .card {
     padding: 4px;
+    border-radius: 12px;
+    background-color:#DFEEF0 !important;
 }
 
 .card-img {
-    border-radius: 0;
+    border-radius: 0 0 12px 12px;
+    height: 150px;
+    width: 150px;
+}
+
+.card-text {
+    color: #13455E;
 }
 
 .expire-time-font-size {
-    font-size: 0.75em;
+    font-size: 1em;
+    color: #13455E !important;
 }
 
 .name-tag {
@@ -26,7 +40,9 @@
     width: 100%;
     bottom: 0;
     color: white;
+    background-color:#59abb2;
     text-align: center;
+    border-radius: 0 0 12px 12px;
 }
 
 .action-toolbar > button {
@@ -34,5 +50,6 @@
 }
 
 .flex-cards .card-text {
+    font-size: 0.75em;
     margin: 0.75em 0;
 }
