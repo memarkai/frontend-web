@@ -21,7 +21,7 @@ html, body {
 }
 
 .mai-sidenav-shift {
-    margin-left: var(--sidenav-width);
+    padding-left: var(--sidenav-width);
 }
 
 /*********/
