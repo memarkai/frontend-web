@@ -22,7 +22,7 @@ html, body {
 }
 
 .mai-sidenav-shift {
-    padding-left: calc(var(--sidenav-width) + 10px);
+    padding-left: var(--sidenav-width);
 }
 
 /*********/

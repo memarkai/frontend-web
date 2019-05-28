@@ -7,7 +7,7 @@ import { ChatComponent } from './chat/chat.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 
 const routes: Routes = [
-  {path: 'calendar', component: CalendarComponent},
+  {path: 'schedule', component: CalendarComponent},
   {path: 'chats', component: ChatComponent},
   {path: 'settings', component: PreferencesComponent},
   {path: '', component: HomeComponent}
