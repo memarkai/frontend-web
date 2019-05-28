@@ -1,0 +1,22 @@
+.notification-btn {
+    font-size:20px;
+    background-color:#DFEEF0;
+    color: #13455E;
+    align-content: center center;
+}
+.notification-btn > .icon {
+    font-size:30px;
+}
+
+.alert-text {
+    color:#dc3545;
+}
+
+div.notifications-ball {
+    border-radius: 15px;
+    min-width:30px;
+    min-height:30px;
+    color:#DFEEF0;
+    display: inline-block;
+    background-color:#dc3545;
+}
