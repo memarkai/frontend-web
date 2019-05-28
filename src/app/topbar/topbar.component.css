@@ -9,6 +9,9 @@
 }
 .notification-btn > .icon {
     font-size:30px;
+    position: relative;
+    top: 3px;
+    left: -2px;
 }
 
 .alert-text {
