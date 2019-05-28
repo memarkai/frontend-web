@@ -6,6 +6,14 @@
     background-color:#DFEEF0;
     color: #13455E;
     align-content: center center;
+    padding: 5px;
+    margin-top:5px;
+    right:5px;
+    position: absolute;
+}
+.notification-btn-content {
+    position:relative;
+    top:-1px;
 }
 .notification-btn > .icon {
     font-size:30px;
@@ -19,6 +27,7 @@
 }
 
 div.notifications-ball {
+    font-size:20px;
     border-radius: 15px;
     min-width:30px;
     min-height:30px;
