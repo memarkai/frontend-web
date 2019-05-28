@@ -27,8 +27,8 @@
             </p>
           </div>
           <div class="btn-toolbar justify-content-between action-toolbar py-3" role="toolbar" aria-label="Ações de um pedido de agendamento">
-              <button type="button" class="btn btn-danger">Recusar</button>
-              <button type="button" class="btn btn-success">Marcar</button>
+              <button type="button" class="btn btn-danger" (click)="onRefuseClick(item)">Recusar</button>
+              <button type="button" class="btn btn-success" (click)="onAcceptClick(item)">Marcar</button>
           </div>
         </div>
     </div>

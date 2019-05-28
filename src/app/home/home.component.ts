@@ -33,4 +33,13 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  onRefuseClick(entry: AppointmentEntry) {
+    console.log('Recusar:');
+    console.dir(entry);
+  }
+
+  onAcceptClick(entry: AppointmentEntry) {
+    console.log('Marcar:');
+    console.dir(entry);
+  }
 }
