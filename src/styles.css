@@ -1,5 +1,6 @@
 :root {
     --sidenav-width: 200px;
+    --topbar-height: 70px;
 }
 
 /**********/
@@ -17,7 +18,7 @@ html, body {
 }
 
 .mai-topbar-shift {
-    padding-top: 16px; /* Must be the height of topbar */
+    padding-top: calc(var(--topbar-height) + 16px); /* Must be the height of topbar */
 }
 
 .mai-sidenav-shift {

@@ -1,3 +1,6 @@
+.topbar {
+    height: var(--topbar-height);
+}
 .notification-btn {
     font-size:20px;
     background-color:#DFEEF0;
