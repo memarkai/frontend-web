@@ -1,3 +1,4 @@
+import { AppointmentEntryService } from './services/appointment-entry.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -27,7 +28,9 @@ import { PreferencesComponent } from './preferences/preferences.component';
     AppRoutingModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    AppointmentEntryService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

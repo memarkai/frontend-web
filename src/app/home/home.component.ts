@@ -1,3 +1,4 @@
+import { AppointmentEntryService } from './../services/appointment-entry.service';
 import { Component, OnInit } from '@angular/core';
 
 import { AppointmentEntry } from '../models/appoinment-entry';
@@ -9,37 +10,37 @@ import { AppointmentEntry } from '../models/appoinment-entry';
 })
 export class HomeComponent implements OnInit {
 
-  entries: AppointmentEntry[] = [
-    {
-      expireTime: 10,
-      patientName: 'Regino',
-      patientAge: 23,
-      specialty: 'Odontologia',
-      paymentMethod: 'Plano Amil Dental',
-      date: 'Segunda, 27/05 às 14:00',
-    },
-    {
-      expireTime: 32,
-      patientName: 'Ana Maria',
-      patientAge: 36,
-      specialty: 'Odontologia',
-      paymentMethod: 'Plano Amil Dental',
-      date: 'Terça, 28/05 às 10:00',
-    },
-  ];
+  entries: AppointmentEntry[];
 
-  constructor() { }
+  constructor(private service: AppointmentEntryService) { }
 
   ngOnInit() {
+    this.getEntriesList();
+  }
+
+  getEntriesList() {
+    this.entries = this.service.getEntriesList();
   }
 
   onRefuseClick(entry: AppointmentEntry) {
-    console.log('Recusar:');
-    console.dir(entry);
+    if (this.service.refuseAppointment(entry)) {
+      this.removeFromList(entry);
+    } else {
+      alert('Hi i\'m an Error. Take care of me.');
+    }
   }
 
   onAcceptClick(entry: AppointmentEntry) {
-    console.log('Marcar:');
-    console.dir(entry);
+    if (this.service.confirmAppointment(entry)) {
+      this.removeFromList(entry);
+    } else {
+      alert('Hi i\'m an Error. Take care of me.');
+    }
+  }
+
+  removeFromList(entry: AppointmentEntry) {
+    this.entries = this.entries.filter((value, idx, arr) => {
+      return value !== entry;
+    });
   }
 }
