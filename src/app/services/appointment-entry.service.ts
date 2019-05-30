@@ -17,6 +17,14 @@ export class AppointmentEntryService {
       specialty: 'Odontologia',
       paymentMethod: 'Amil Dental',
       date: 'Segunda, 01/06 às 14:00'
+    },
+    {
+      expireTime: 23,
+      patientName: 'Ana Clara',
+      patientAge: 32,
+      specialty: 'Odontologia',
+      paymentMethod: 'Amil Dental',
+      date: 'Terça, 02/06 às 10:00'
     }];
 
     return objList;
