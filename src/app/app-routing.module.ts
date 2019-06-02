@@ -6,13 +6,14 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  {path: 'schedule', component: CalendarComponent},
-  {path: 'chats', component: ChatComponent},
-  {path: 'settings', component: PreferencesComponent},
+  {path: 'schedule', component: CalendarComponent, canActivate: [AuthGuard]},
+  {path: 'chats', component: ChatComponent, canActivate: [AuthGuard]},
+  {path: 'settings', component: PreferencesComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
-  {path: '', component: HomeComponent}
+  {path: '', component: HomeComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

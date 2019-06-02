@@ -15,6 +15,7 @@ import { PreferencesComponent } from './preferences/preferences.component';
 import { LoginComponent } from './login/login.component';
 import { AppointmentEntryService } from './services/appointment-entry.service';
 import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AuthService } from './services/auth.service';
   providers: [
     AppointmentEntryService,
     AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
