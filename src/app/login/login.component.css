@@ -10,3 +10,12 @@
     justify-content: center;
     align-items: center;
 }
+
+.login-form-wrap {
+    width: 300px;
+}
+
+.login-form-wrap .card.error {
+    font-size: small;
+    color: red;
+}

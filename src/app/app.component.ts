@@ -9,17 +9,17 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'markai-gui';
-  showMenu = false;
+  // showMenu = false;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.showMenu.subscribe(
-      (show: boolean) => this.showMenu = show
-    );
+    // this.authService.showMenu.subscribe(
+    //   (show: boolean) => this.showMenu = show
+    // );
   }
 
   ngOnDestroy() {
-    this.authService.showMenu.unsubscribe();
+    // this.authService.showMenu.unsubscribe();
   }
 }
