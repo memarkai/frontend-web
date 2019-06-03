@@ -1,20 +1,21 @@
-import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { EventEmitter, Injectable } from '@angular/core';
 
 import { tap, shareReplay } from 'rxjs/operators';
 
 import * as jwtDecode from 'jwt-decode';
 import * as moment from 'moment';
 
+import { JWTPayload } from './../models/jwt-payload';
 import { User } from './../models/user';
-import { JWTPayload } from '../models/jwt-payload';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiRoot = 'localhost:8080/api/';
+  private apiRoot = environment.apiRoot;
   private tokenStorageKey = 'token';
   private expiresAtStorageKey = 'expires_at';
 
