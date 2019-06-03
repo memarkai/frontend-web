@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -18,6 +19,9 @@ import { AppointmentEntryService } from './services/appointment-entry.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ChatComponent,
     PreferencesComponent,
     LoginComponent,
+    ScheduleDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +41,11 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   providers: [
     AppointmentEntryService,
