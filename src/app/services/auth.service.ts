@@ -22,12 +22,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  private setSession(authResult) {
-    const token = authResult.token;
+  private setSession(token) {
     const payload = jwtDecode(token) as JWTPayload;
     const expiresAt = moment.unix(payload.exp);
 
-    localStorage.setItem(this.tokenStorageKey, authResult.token);
+    localStorage.setItem(this.tokenStorageKey, token);
     localStorage.setItem(this.expiresAtStorageKey, JSON.stringify(expiresAt.valueOf()));
   }
 
@@ -41,7 +40,8 @@ export class AuthService {
       {
         email: user.email,
         password: user.password
-      }
+      },
+      {responseType: 'text'}
     ).pipe(
       tap(response => this.setSession(response)),
       shareReplay(),
