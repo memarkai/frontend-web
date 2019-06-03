@@ -19,8 +19,6 @@ export class AuthService {
   private tokenStorageKey = 'token';
   private expiresAtStorageKey = 'expires_at';
 
-  showMenu = new EventEmitter<boolean>();
-
   constructor(private http: HttpClient) { }
 
   private setSession(token) {
