@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiRoot: 'http://localhost:8000/api/'
+  apiRoot: 'http://ec2-3-16-1-205.us-east-2.compute.amazonaws.com/api/'
 };
 
 /*

@@ -36,10 +36,7 @@ export class AuthService {
   logIn(user: User) {
     return this.http.post(
       this.apiRoot.concat('login/'),
-      {
-        email: user.email,
-        password: user.password
-      },
+      user,
       {responseType: 'text'}
     ).pipe(
       tap(response => this.setSession(response)),

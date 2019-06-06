@@ -1,64 +1,61 @@
-import { AppointmentEntry } from './../models/appoinment-entry';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import * as moment from 'moment';
+
+import { AppointmentEntry } from './../models/appoinment-entry';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentEntryService {
-  baseURL = 'http://ec2-3-16-1-205.us-east-2.compute.amazonaws.com/api/';
+
+  private apiRoot = environment.apiRoot;
 
   constructor(private http: HttpClient) { }
 
   getEntriesList() {
-    const objList: AppointmentEntry[] = [{
-      expireTime: 10,
-      patientName: 'Regino',
-      patientAge: 28,
-      specialty: 'Odontologia',
-      paymentMethod: 'Amil Dental',
-      date: 'Segunda, 01/06 às 14:00'
-    },
-    {
-      expireTime: 23,
-      patientName: 'Ana Clara',
-      patientAge: 32,
-      specialty: 'Odontologia',
-      paymentMethod: 'Amil Dental',
-      date: 'Terça, 02/06 às 10:00'
-    }];
-
-    return objList;
+    return [
+      {
+        id: "51189d7b-020f-4511-9bf5-037f6f7fbd65",
+        expireTime: 10,
+        patientName: "Regino",
+        patientAge: 26,
+        specialty: "Odontologia",
+        paymentMethod: "Amil Dental",
+        date: moment(new Date(2019, 6, 12))
+      },
+      {
+        id: "51189d7b-020f-4511-9bf5-037f6f7fbd65",
+        expireTime: 10,
+        patientName: "Biroleide",
+        patientAge: 44,
+        specialty: "Odontologia",
+        paymentMethod: "Mastercard Débito",
+        date: moment(new Date(2019, 6, 13))
+      }
+    ]
+    // return this.http.get(
+    //   this.apiRoot.concat('schedule/consultation/...'),
+    // );
   }
 
   confirmAppointment(entry: AppointmentEntry) {
-    return true;
+    return this.http.post(
+      this.apiRoot.concat('schedule/consultation/candidate/accept/'),
+      {
+        patient: entry.id
+      }
+    )
   }
 
   refuseAppointment(entry: AppointmentEntry) {
-    return true;
-  }
-
-  private getHeader(){
-    let headers = new HttpHeaders();
-    const token = localStorage.getItem('token');
-    headers = headers.set('Bearer ', token);
-    return headers
-  }
-
-  login(){
-    var dataLogin:Object = new Object();
-    dataLogin["email"] = "sudo-user@markai.com";
-    dataLogin["password"] = "YQBMXYBT";
-
-    return this.http.post(this.baseURL + 'login/', dataLogin, {responseType: "text"});
-  }
-
-  criaMedico(doctor){
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("token") });
-    
-    return this.http.post(this.baseURL 
-      + "clinics/doctor/create/", 
-      doctor, {headers: headers} )
+    return this.http.post(
+      this.apiRoot.concat('schedule/consultation/candidate/refuse/'),
+      {
+        patient: entry.id
+      }
+    )
   }
 }
