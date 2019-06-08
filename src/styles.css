@@ -19,6 +19,10 @@ html, body {
     width: 100%;
 }
 
+.full-width {
+    width: 100%;
+}
+
 .mai-topbar-shift {
     padding-top: calc(var(--topbar-height) + 16px); /* Must be the height of topbar */
 }

@@ -1,0 +1,24 @@
+.login-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+}
+
+.login-form-wrap {
+    width: 300px;
+}
+
+.login-form-wrap .card.error {
+    font-size: small;
+    color: red;
+}
