@@ -9,7 +9,7 @@ import { environment } from './../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AppointmentEntryService {
+export class ClinicApiService {
 
   private apiRoot = environment.apiRoot;
 
@@ -18,24 +18,24 @@ export class AppointmentEntryService {
   getEntriesList() {
     return [
       {
-        id: "51189d7b-020f-4511-9bf5-037f6f7fbd65",
+        id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
         expireTime: 10,
-        patientName: "Regino",
+        patientName: 'Regino',
         patientAge: 26,
-        specialty: "Odontologia",
-        paymentMethod: "Amil Dental",
+        specialty: 'Odontologia',
+        paymentMethod: 'Amil Dental',
         date: moment(new Date(2019, 6, 12))
       },
       {
-        id: "51189d7b-020f-4511-9bf5-037f6f7fbd65",
+        id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
         expireTime: 10,
-        patientName: "Biroleide",
+        patientName: 'Biroleide',
         patientAge: 44,
-        specialty: "Odontologia",
-        paymentMethod: "Mastercard Débito",
+        specialty: 'Odontologia',
+        paymentMethod: 'Mastercard Débito',
         date: moment(new Date(2019, 6, 13))
       }
-    ]
+    ];
     // return this.http.get(
     //   this.apiRoot.concat('schedule/consultation/...'),
     // );

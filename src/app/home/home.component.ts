@@ -1,7 +1,7 @@
-import { AppointmentEntryService } from './../services/appointment-entry.service';
 import { Component, OnInit } from '@angular/core';
 
 import { AppointmentEntry } from '../models/appoinment-entry';
+import { ClinicApiService } from './../services/clinic-api.service';
 
 @Component({
   selector: 'app-home',
@@ -13,29 +13,29 @@ export class HomeComponent implements OnInit {
   entries: AppointmentEntry[];
   error: any;
 
-  constructor(private service: AppointmentEntryService) { }
+  constructor(private api: ClinicApiService) { }
 
   ngOnInit() {
     this.getEntriesList();
   }
 
   getEntriesList() {
-    this.entries = this.service.getEntriesList();
-    // this.service.getEntriesList().subscribe(
+    this.entries = this.api.getEntriesList();
+    // this.api.getEntriesList().subscribe(
     //   success => this.entries = success,
     //   error => this.error = error
     // );
   }
 
   onRefuseClick(entry: AppointmentEntry) {
-    this.service.refuseAppointment(entry).subscribe(
+    this.api.refuseAppointment(entry).subscribe(
       success => this.removeFromList(entry),
       error => this.error = error
     );
   }
 
   onAcceptClick(entry: AppointmentEntry) {
-    this.service.confirmAppointment(entry).subscribe(
+    this.api.confirmAppointment(entry).subscribe(
       success => this.removeFromList(entry),
       error => this.error = error
     );
