@@ -1,3 +1,5 @@
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
 :root {
     --sidenav-width: 200px;
     --topbar-height: 70px;
@@ -14,6 +16,10 @@ html, body {
 
 .full-screen {
     height: 100%;
+    width: 100%;
+}
+
+.full-width {
     width: 100%;
 }
 
