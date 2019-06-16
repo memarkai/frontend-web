@@ -1,0 +1,80 @@
+#preferences {
+    padding: 0;
+}
+
+.title {
+    padding-left: 20px;
+    background-color: #59ABB3;
+    height: 50px;
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #658797;
+    padding: 40px 0;
+}
+
+.img {
+    width: 200px;
+    height: 200px;
+    background-color: black;
+    border-radius: 100px;
+    border: 10px solid #59ABB3;
+}
+
+.edit {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.edit .btn-edit {
+    border: none;
+    background-color: #C8C8C8;
+    padding: 5px 10px;
+    border-radius: 10px;
+    width: 180px;
+    color: #4B6D7F;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.company {
+    width: 50%;
+    padding-left: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header {
+    color: #154760;
+    font-weight: 400;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.company .body p {
+    margin: 0;
+    font-size: 22px;
+    color: #215067;
+}
+
+.company .edit {
+    height: 50px;
+    font-size: 25px;
+    color: white;
+    background-color: #59ABB3;
+    border: none;
+    padding: 0px 20px;
+    border-radius: 10px;
+}
