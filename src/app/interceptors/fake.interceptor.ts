@@ -26,14 +26,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             switch (true) {
                 case url.endsWith('login/') && method === 'POST':
                     return fakeLogin();
-                case url.endsWith('/users/authenticate') && method === 'POST':
-                    return authenticate();
-                case url.endsWith('/users') && method === 'GET':
-                    return getUsers();
-                case url.match(/\/users\/\d+$/) && method === 'GET':
-                    return getUserById();
-                case url.match(/\/users\/\d+$/) && method === 'DELETE':
-                    return deleteUser();
+                case url.endsWith('schedule/consultation/search/open/') && method === 'GET':
+                    return getOpenEntries();
+                case url.endsWith('schedule/consultation/candidate/accept/') && method === 'POST':
+                    return confirmAppointment();
+                case url.endsWith('schedule/consultation/candidate/refuse/') && method === 'POST':
+                    return refuseAppointment();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -41,54 +39,51 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         // route functions
-
         function fakeLogin() {
             return ok('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2U5NTc1MGItMmFhYS00ZGQ1LWFiYjAtZGQ1MmFhNTNiNmVjIiwiZXhwIjoxNTYzNzY1NDEyfQ.De_kEUHRswM5l0cpB1KJSnlK2YN433PdaaMfnIYlbzc');
         }
 
-        function authenticate() {
-            const { username, password } = body;
-            const user = users.find(x => x.username === username && x.password === password);
-            if (!user) {
-                return error('Username or password is incorrect');
-            }
-            return ok({
-                id: user.id,
-                username: user.username,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                token: 'fake-jwt-token'
-            })
+        function getOpenEntries() {
+            return ok([
+                {
+                  id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
+                  expireTime: 10,
+                  patientName: 'Regino',
+                  patientAge: 26,
+                  specialty: 'Odontologia',
+                  paymentMethod: 'Amil Dental',
+                  date: moment(new Date(2019, 7, 1))
+                },
+                {
+                  id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
+                  expireTime: 20,
+                  patientName: 'Jackson',
+                  patientAge: 44,
+                  specialty: 'Odontologia',
+                  paymentMethod: 'Mastercard Débito',
+                  date: moment(new Date(2019, 7, 2))
+                },
+                {
+                  id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
+                  expireTime: 30,
+                  patientName: 'Yossi',
+                  patientAge: 33,
+                  specialty: 'Fisioterapia',
+                  paymentMethod: 'Bradesco Saude',
+                  date: moment(new Date(2019, 7, 3))
+                }
+            ])
         }
 
-        function getUsers() {
-            if (!isLoggedIn()) {
-                return unauthorized();
-            }
-            return ok(users);
+        function confirmAppointment() {
+            return ok();
         }
 
-        function getUserById() {
-            if (!isLoggedIn()) {
-                return unauthorized();
-            }
-
-            const user = users.find(x => x.id == idFromUrl());
-            return ok(user);
-        }
-
-        function deleteUser() {
-            if (!isLoggedIn()) {
-                return unauthorized();
-            }
-
-            users = users.filter(x => x.id !== idFromUrl());
-            localStorage.setItem('users', JSON.stringify(users));
+        function refuseAppointment() {
             return ok();
         }
 
         // helper functions
-
         function ok(body?) {
             return of(new HttpResponse({ status: 200, body }))
         }
