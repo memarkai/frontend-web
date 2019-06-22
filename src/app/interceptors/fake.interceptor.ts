@@ -32,6 +32,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return confirmAppointment();
                 case url.endsWith('schedule/consultation/candidate/refuse/') && method === 'POST':
                     return refuseAppointment();
+                case url.endsWith('clinics/get/') && method == 'GET':
+                    return getClinics();
+                case url.endsWith('insurance/list/') && method == 'GET':
+                    return getPlans();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -46,31 +50,77 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function getOpenEntries() {
             return ok([
                 {
-                  id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
-                  expireTime: 10,
-                  patientName: 'Regino',
-                  patientAge: 26,
-                  specialty: 'Odontologia',
-                  paymentMethod: 'Amil Dental',
-                  date: moment(new Date(2019, 7, 1))
+                    id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
+                    expireTime: 10,
+                    patientName: 'Regino',
+                    patientAge: 26,
+                    specialty: 'Odontologia',
+                    paymentMethod: 'Amil Dental',
+                    date: moment(new Date(2019, 7, 1))
                 },
                 {
-                  id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
-                  expireTime: 20,
-                  patientName: 'Jackson',
-                  patientAge: 44,
-                  specialty: 'Odontologia',
-                  paymentMethod: 'Mastercard Débito',
-                  date: moment(new Date(2019, 7, 2))
+                    id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
+                    expireTime: 20,
+                    patientName: 'Jackson',
+                    patientAge: 44,
+                    specialty: 'Odontologia',
+                    paymentMethod: 'Mastercard Débito',
+                    date: moment(new Date(2019, 7, 2))
                 },
                 {
-                  id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
-                  expireTime: 30,
-                  patientName: 'Yossi',
-                  patientAge: 33,
-                  specialty: 'Fisioterapia',
-                  paymentMethod: 'Bradesco Saude',
-                  date: moment(new Date(2019, 7, 3))
+                    id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
+                    expireTime: 30,
+                    patientName: 'Yossi',
+                    patientAge: 33,
+                    specialty: 'Fisioterapia',
+                    paymentMethod: 'Bradesco Saude',
+                    date: moment(new Date(2019, 7, 3))
+                }
+            ])
+        }
+
+        function getClinics() {
+            return ok(
+                {
+                    "id": "2561d1ba-f773-4349-b428-f98dbf43cae8",
+                    "email": "clinic@test.com",
+                    "phone": null,
+                    "name": "Clinica Santa Cruz",
+                    "address": "Av. Fantasia, 450, Cidade Universitária, Recife-PE",
+                    "created_at": "2019-05-19T16:46:09.777414Z",
+                    "is_staff": false,
+                    "latitude": null,
+                    "longitude": null,
+                    "plans": []
+                }
+            )
+        }
+
+        function getPlans() {
+            return ok([
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "Bradesco"
+                },
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "Unimed Recife"
+                },
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "Amil"
+                },
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "SulAmérica"
+                },
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "Hapvida"
+                },
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "Cassi"
                 }
             ])
         }

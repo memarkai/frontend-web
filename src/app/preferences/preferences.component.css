@@ -78,3 +78,39 @@
     padding: 0px 20px;
     border-radius: 10px;
 }
+
+.plans-div {
+    padding: 40px;
+}
+
+.plans-title {
+    margin-bottom: 30px;
+}
+
+.plansAdd-list {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.plansAdd-item {
+    margin: 20px;
+    background-color: #59ABB3;
+    width: auto;
+    text-align: center;
+    height: 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 20px;
+}
+
+.btn-plans-remove {
+    background: transparent;
+    border: none;
+    color: white;
+    margin-top: 2px;
+    margin-left: 10px;
+}

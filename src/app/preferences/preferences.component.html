@@ -6,29 +6,48 @@
 
 	<div class="info">
 		<div>
-			<div class="img">
-				
-			</div>
-			<div class="edit">
+			<div class="img"></div>
+			<!-- <div class="edit">
 				<button class="btn-edit">
 					Alterar Imagem
-				</button>
-			</div>
+				</button> -->
 		</div>
 		<div class="company">
 			<div>
 				<h1 class="header">
-					Clínica Santa Cruz
+					{{ clinic.name }}
 				</h1>
 				<div class="body">
-					<p>Av. Fantasia, 450, Cidade Universitária, Recife-PE</p>
-					<p>Outras informações que podem ser adcionadas aqui.</p>
+					<p>{{ clinic.address }}</p>
+					<p>{{ clinic.email }}</p>
 				</div>
 			</div>
-			<div class="footer">
+			<!-- <div class="footer">
 				<button class="edit">Editar Perfil</button>
-			</div>
+			</div> -->
 		</div>
 	</div>
+	<div class="plans-div">
+		<h4 class="plans-title">Planos</h4>
 
+		<ng-autocomplete [data]="plans" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+			(inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+			placeHolder="Adicionar planos" [(ngModel)]="plan">
+		</ng-autocomplete>
+		<ng-template #itemTemplate let-item>
+			<a [innerHTML]="item.name"></a>
+		</ng-template>
+		<ng-template #notFoundTemplate let-notFound>
+			<div [innerHTML]="notFound"></div>
+		</ng-template>
+
+		<ul *ngIf="plansAdd.length > 0" class="plansAdd-list">
+			<li *ngFor="let item of plansAdd" class="plansAdd-item">
+				{{ item.name }}
+				<button class="btn-plans-remove" (click)="removePlan(item)">
+						<i class="icon ion-md-close"></i>
+				</button>
+			</li>
+		</ul>
+	</div>
 </div>
