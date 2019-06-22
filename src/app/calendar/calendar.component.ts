@@ -58,11 +58,15 @@ export class CalendarComponent implements OnInit {
   viewDate: Date = new Date();
   dragToCreateActive = false;
   events: CalendarEvent[] = [];
-  nomeMedico:String = "Marcos Castro";
-  locale:string = 'pt';
+  nomeMedico: string = "Marcos Castro";
+  locale: string = 'pt';
+  startDay: number = 0;
+
   constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.startDay = this.viewDate.getDay();
+    this.setElementsByDefault();
   }
 
 
@@ -72,6 +76,28 @@ export class CalendarComponent implements OnInit {
         event => event.meta.incrementsBadgeTotal
       ).length;
     });
+  }
+
+  setElementsByDefault(){
+    const patientEvent: CalendarEvent = {
+      id: this.events.length,
+      title: 'Rodrigo César',
+      start: new Date(),
+      meta: {
+        tmpEvent: true
+      }
+    }
+
+    const confirmationEvent: CalendarEvent = {
+      id: this.events.length,
+      title: 'Pendente',
+      start: new Date(2019, 5, 24, 13),
+      meta: {
+        tmpEvent: true
+      }
+    }
+
+    this.events = [...this.events, patientEvent, confirmationEvent];
   }
 
   startDragToCreate(
