@@ -44,12 +44,8 @@
           </div>
         </ng-template>
 
-        <mwl-calendar-week-view 
-        [viewDate]="viewDate" 
-        [events]="events"
-        [hourSegmentTemplate]="weekViewHourSegmentTemplate"
-        [weekStartsOn]="startDay" 
-        [locale]="locale">
+        <mwl-calendar-week-view [viewDate]="viewDate" [events]="events"
+          [hourSegmentTemplate]="weekViewHourSegmentTemplate" [weekStartsOn]="startDay" [locale]="locale">
         </mwl-calendar-week-view>
 
       </div>
@@ -62,55 +58,17 @@
 </div>
 
 <div class="container-fluid">
-
   <ul class="list-inline">
-    <li class="list-inline-item">
+    <li class="list-inline-item" *ngFor="let doctor of doctors">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">DR. Marcos Castro de Souza</h5>
-          <p class="card-text">Especialidade: Fisioterapeuta</p>
+          <h5 class="card-title">Dr. {{ doctor.name }}</h5>
+          <p class="card-text">Especialidade: {{ doctor.specialty }}</p>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agenda">
-            Agenda
-          </button>
-        </div>
-      </div>
-    </li>
-    <li class="list-inline-item">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">DR. Marcos Castro de Souza</h5>
-          <p class="card-text">Especialidade: Fisioterapeuta</p>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agenda">
-            Agenda
-          </button>
-        </div>
-      </div>
-    </li>
-    <li class="list-inline-item">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">DR. Marcos Castro de Souza</h5>
-          <p class="card-text">Especialidade: Fisioterapeuta</p>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agenda">
-            Agenda
+            Ver Agenda
           </button>
         </div>
       </div>
     </li>
   </ul>
-  <!-- <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-  
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div> -->
 </div>

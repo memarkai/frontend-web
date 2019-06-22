@@ -3,10 +3,7 @@ import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTT
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
-import { JWTPayload } from './../models/jwt-payload';
-
 import * as moment from 'moment';
-import { NONE_TYPE } from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -34,6 +31,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getClinics();
                 case url.endsWith('insurance/list/') && method == 'GET':
                     return getPlans();
+                case url.endsWith('clinics/doctor/list/') && method == 'GET':
+                    return getDoctors();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -70,7 +69,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok([
                 {
                     "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
-                    "name": "Bradesco"
+                    "name": "Bradesco Saude"
                 },
                 {
                     "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
@@ -78,7 +77,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 },
                 {
                     "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
-                    "name": "Amil"
+                    "name": "Amil Dental"
                 },
                 {
                     "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
@@ -117,6 +116,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             saveCollection('openEntries', entries);
 
             return ok();
+        }
+
+        function getDoctors() {
+            return ok([{
+                name: "Marcos Castro de Souza",
+                specialty: "Odontologia"
+            }]);
         }
 
         // localStorage access point

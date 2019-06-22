@@ -45,9 +45,15 @@ export class ClinicApiService {
     )
   }
 
-  getAllPlans()
-{
-  return this.http.get(
-    this.apiRoot.concat('insurance/list/')
-  )
-}}
+  getAllPlans(){
+    return this.http.get(
+      this.apiRoot.concat('insurance/list/')
+    )
+  }
+
+  getDoctors(){
+    return this.http.get(
+      this.apiRoot.concat('clinics/doctor/list/')
+    )
+  }
+}
