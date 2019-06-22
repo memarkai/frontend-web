@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/markai-gui",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
