@@ -17,6 +17,7 @@ import { fromEvent } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
 import { registerLocaleData } from '@angular/common';
+import { ClinicApiService } from '../services/clinic-api.service';
 
 registerLocaleData(ptBr)
 
@@ -60,18 +61,24 @@ export class CalendarComponent implements OnInit {
   events: CalendarEvent[] = [];
   locale:string = 'pt';
 
-  doctors: any[] = [
-    {
-      name: 'Marcos Castro de Souza',
-      specialty: 'Odontologia'
-    },
-  ]
+  doctors: any[];
+  error: any;
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private api: ClinicApiService,
+  ) { }
 
   ngOnInit() {
+    this.getMyDoctors();
   }
 
+  getMyDoctors() {
+    this.api.getDoctors().subscribe(
+      success => this.doctors = success as any,
+      error => this.error = error
+    )
+  }
 
   beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
     body.forEach(day => {

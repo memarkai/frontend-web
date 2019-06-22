@@ -31,6 +31,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getClinics();
                 case url.endsWith('insurance/list/') && method == 'GET':
                     return getPlans();
+                case url.endsWith('clinics/doctor/list/') && method == 'GET':
+                    return getDoctors();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -114,6 +116,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             saveCollection('openEntries', entries);
 
             return ok();
+        }
+
+        function getDoctors() {
+            return ok([{
+                name: "Marcos Castro de Souza",
+                specialty: "Odontologia"
+            }]);
         }
 
         // localStorage access point
