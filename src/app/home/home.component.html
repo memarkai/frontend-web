@@ -19,7 +19,7 @@
             </p>
             <p class="card-text">
               <span class="font-weight-bold">Data e hora:</span><br/>
-              <span>{{ item.date }}</span>
+              <span>{{ item.date | date: "dd/MM/yyyy HH:mm" }}</span>
             </p>
             <p class="card-text">
               <span class="font-weight-bold">Forma de pagamento:</span><br/>

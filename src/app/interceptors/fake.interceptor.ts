@@ -6,9 +6,7 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { JWTPayload } from './../models/jwt-payload';
 
 import * as moment from 'moment';
-
-// array in local storage for registered users
-let users = JSON.parse(localStorage.getItem('users')) || [];
+import { NONE_TYPE } from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -44,46 +42,58 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function getOpenEntries() {
-            return ok([
-                {
-                  id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
-                  expireTime: 10,
-                  patientName: 'Regino',
-                  patientAge: 26,
-                  specialty: 'Odontologia',
-                  paymentMethod: 'Amil Dental',
-                  date: moment(new Date(2019, 7, 1))
-                },
-                {
-                  id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
-                  expireTime: 20,
-                  patientName: 'Jackson',
-                  patientAge: 44,
-                  specialty: 'Odontologia',
-                  paymentMethod: 'Mastercard Débito',
-                  date: moment(new Date(2019, 7, 2))
-                },
-                {
-                  id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
-                  expireTime: 30,
-                  patientName: 'Yossi',
-                  patientAge: 33,
-                  specialty: 'Fisioterapia',
-                  paymentMethod: 'Bradesco Saude',
-                  date: moment(new Date(2019, 7, 3))
-                }
-            ])
+            return ok(retrieveList('openEntries'));
         }
 
         function confirmAppointment() {
+            let entries = retrieveList('openEntries');
+            let appointments = retrieveList('appointments');
+            const entry = getFromCollection(entries, body.patient);
+
+            entries = removeFromCollection(entries, 'date', entry.date);
+            saveCollection('openEntries', entries);
+
+            appointments.push(entry);
+            saveCollection('appointments', appointments);
+
             return ok();
         }
 
         function refuseAppointment() {
+            let entries = retrieveList('openEntries');
+            const entry = getFromCollection(entries, body.patient);
+
+            entries = removeFromCollection(entries, 'id', entry.id);
+            saveCollection('openEntries', entries);
+
             return ok();
         }
 
+        // localStorage access point
+        function saveCollection(table: string, collection: any[]) {
+            localStorage.setItem(table, JSON.stringify(collection));
+        }
+
+        function retrieveList(table: string) {
+            return JSON.parse(localStorage.getItem(table)) || [];
+        }
+
         // helper functions
+        function getFromCollection(collection: any[], id: string) {
+            for (let i = 0; i < collection.length; i++) {
+                if (collection[i].id === id) {
+                    return collection[i];
+                }
+            }
+            return null;
+        }
+
+        function removeFromCollection(collection: any[], key: string, value: any) {
+            return collection.filter((e, i, arr) => {
+                return e[key] != value;
+            });
+        }
+
         function ok(body?) {
             return of(new HttpResponse({ status: 200, body }))
         }
@@ -94,10 +104,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function error(message) {
             return throwError({ error: { message } });
-        }
-
-        function isLoggedIn() {
-            return headers.get('Authorization') === 'Bearer fake-jwt-token';
         }
 
         function idFromUrl() {
@@ -113,3 +119,63 @@ export const fakeBackendProvider = {
     useClass: FakeBackendInterceptor,
     multi: true
 };
+
+// init localStorage
+localStorage.setItem('appointments', JSON.stringify([
+    {
+        id: 'd58fc3b0-e1fb-4843-a7d4-d250ab356de0',
+        expireTime: 5,
+        patientName: 'Lais',
+        patientAge: 23,
+        specialty: 'Odontologia',
+        paymentMethod: 'Bradesco Saude',
+        date: moment(new Date(2019, 7, 3, 11))
+    },
+]));
+localStorage.setItem('openEntries', JSON.stringify([
+    {
+        id: 'd58fc3b0-e1fb-4843-a7d4-d250ab356de0',
+        expireTime: 10,
+        patientName: 'Regino',
+        patientAge: 26,
+        specialty: 'Odontologia',
+        paymentMethod: 'Amil Dental',
+        date: moment(new Date(2019, 7, 1, 10))
+    },
+    {
+        id: 'f6ab0a07-017b-481c-ac68-5e4385e5d81b',
+        expireTime: 15,
+        patientName: 'Ana Carolina',
+        patientAge: 19,
+        specialty: 'Odontologia',
+        paymentMethod: 'Hapvida',
+        date: moment(new Date(2019, 7, 1, 10))
+    },
+    {
+        id: '103a9f09-1b41-47b7-a43c-55f6a0ad731f',
+        expireTime: 20,
+        patientName: 'Gaspar',
+        patientAge: 60,
+        specialty: 'Odontologia',
+        paymentMethod: 'Bradesco Saude',
+        date: moment(new Date(2019, 7, 2, 11))
+    },
+    {
+        id: 'ddbb2297-f507-4322-a48a-9b1d6a5aefaa',
+        expireTime: 50,
+        patientName: 'Jackson',
+        patientAge: 44,
+        specialty: 'Odontologia',
+        paymentMethod: 'Mastercard Débito',
+        date: moment(new Date(2019, 7, 2, 10))
+    },
+    {
+        id: '51189d7b-020f-4511-9bf5-037f6f7fbd65',
+        expireTime: 60,
+        patientName: 'Yossi',
+        patientAge: 33,
+        specialty: 'Odontologia',
+        paymentMethod: 'Bradesco Saude',
+        date: moment(new Date(2019, 7, 3, 10))
+    }
+]));

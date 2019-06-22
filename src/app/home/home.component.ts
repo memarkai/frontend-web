@@ -28,14 +28,14 @@ export class HomeComponent implements OnInit {
 
   onRefuseClick(entry: AppointmentEntry) {
     this.api.refuseAppointment(entry).subscribe(
-      success => this.removeFromList(entry),
+      success => this.getEntriesList(),
       error => this.error = error
     );
   }
 
   onAcceptClick(entry: AppointmentEntry) {
     this.api.confirmAppointment(entry).subscribe(
-      success => this.removeFromList(entry),
+      success => this.getEntriesList(),
       error => this.error = error
     );
   }
