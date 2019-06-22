@@ -20,11 +20,10 @@ export class HomeComponent implements OnInit {
   }
 
   getEntriesList() {
-    this.entries = this.api.getEntriesList();
-    // this.api.getEntriesList().subscribe(
-    //   success => this.entries = success,
-    //   error => this.error = error
-    // );
+    this.api.getOpenConsultations().subscribe(
+      success => { debugger; },
+      error => this.error = error
+    );
   }
 
   onRefuseClick(entry: AppointmentEntry) {

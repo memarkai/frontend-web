@@ -1,4 +1,4 @@
 export interface JWTPayload {
-    user_id: number;
+    user_id: string;
     exp: number;
 }

@@ -22,6 +22,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
+import { fakeBackendProvider } from './interceptors/fake.interceptor';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.compo
       useClass: AuthInterceptor,
       multi: true,
     },
+    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })

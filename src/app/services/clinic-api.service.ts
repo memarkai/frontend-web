@@ -41,6 +41,12 @@ export class ClinicApiService {
     // );
   }
 
+  getOpenConsultations() {
+    return this.http.get(
+      this.apiRoot.concat('schedule/consultation/search/open/'),
+    );
+  }
+
   confirmAppointment(entry: AppointmentEntry) {
     return this.http.post(
       this.apiRoot.concat('schedule/consultation/candidate/accept/'),
