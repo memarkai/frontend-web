@@ -58,8 +58,15 @@ export class CalendarComponent implements OnInit {
   viewDate: Date = new Date();
   dragToCreateActive = false;
   events: CalendarEvent[] = [];
-  nomeMedico:String = "Marcos Castro";
   locale:string = 'pt';
+
+  doctors: any[] = [
+    {
+      name: 'Marcos Castro de Souza',
+      specialty: 'Odontologia'
+    },
+  ]
+
   constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
