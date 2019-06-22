@@ -38,4 +38,16 @@ export class ClinicApiService {
       }
     )
   }
-}
+
+  getClinicInformation(){
+    return this.http.get(
+      this.apiRoot.concat('clinics/get/')
+    )
+  }
+
+  getAllPlans()
+{
+  return this.http.get(
+    this.apiRoot.concat('insurance/list/')
+  )
+}}

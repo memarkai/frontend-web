@@ -30,6 +30,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return confirmAppointment();
                 case url.endsWith('schedule/consultation/candidate/refuse/') && method === 'POST':
                     return refuseAppointment();
+                case url.endsWith('clinics/get/') && method == 'GET':
+                    return getClinics();
+                case url.endsWith('insurance/list/') && method == 'GET':
+                    return getPlans();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -43,6 +47,52 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function getOpenEntries() {
             return ok(retrieveList('openEntries'));
+        }
+
+        function getClinics() {
+            return ok(
+                {
+                    "id": "2561d1ba-f773-4349-b428-f98dbf43cae8",
+                    "email": "clinic@test.com",
+                    "phone": null,
+                    "name": "Clinica Santa Cruz",
+                    "address": "Av. Fantasia, 450, Cidade Universitária, Recife-PE",
+                    "created_at": "2019-05-19T16:46:09.777414Z",
+                    "is_staff": false,
+                    "latitude": null,
+                    "longitude": null,
+                    "plans": []
+                }
+            )
+        }
+
+        function getPlans() {
+            return ok([
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "Bradesco"
+                },
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "Unimed Recife"
+                },
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "Amil"
+                },
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "SulAmérica"
+                },
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "Hapvida"
+                },
+                {
+                    "id": "ec1b9708-3ab1-4cf6-8baf-574667c40286",
+                    "name": "Cassi"
+                }
+            ])
         }
 
         function confirmAppointment() {
