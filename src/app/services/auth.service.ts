@@ -70,6 +70,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
+    return this.token !== null; // For now 
     return moment().isBefore(this.getExpiration());
   }
 

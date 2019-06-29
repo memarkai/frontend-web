@@ -43,7 +43,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         // route functions
         function fakeLogin() {
-            return ok('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2U5NTc1MGItMmFhYS00ZGQ1LWFiYjAtZGQ1MmFhNTNiNmVjIiwiZXhwIjoxNTYzNzY1NDEyfQ.De_kEUHRswM5l0cpB1KJSnlK2YN433PdaaMfnIYlbzc');
+            return ok('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNGFkZTJjY2UtMTMyYi00YTQ0LThlNDItOTUxMTJjMTU5ZGRmIn0.phcLfQqEMrIMlvNwTwPMelmcg77esPM7cXYrb5KbeEQ');
         }
 
         function getOpenEntries() {
