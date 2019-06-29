@@ -4,35 +4,12 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{nomeMedico}} [AGENDA]</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{currentDoctor.name}} [AGENDA]</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <!-- <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [locale]="locale">
-        </mwl-calendar-month-view> -->
-        <!-- <br> -->
-        <!-- <div class="row">
-          <div class="col-md-6">
-            <div class="btn-group">
-              <div class="btn btn-primary" mwlCalendarPreviousView [view]="'day'" [(viewDate)]="viewDate">
-                Ontem
-              </div>
-              <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
-                Hoje
-              </div>
-              <div class="btn btn-primary" mwlCalendarNextView [view]="'day'" [(viewDate)]="viewDate">
-                Amanhã
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 text-right">
-            <h3>{{ viewDate | calendarDate:('weekViewTitle') }}</h3>
-          </div>
-        </div>
-        <br /> -->
-
         <ng-template #weekViewHourSegmentTemplate let-segment="segment" let-locale="locale"
           let-segmentHeight="segmentHeight" let-isTimeLabel="isTimeLabel">
           <div #segmentElement class="cal-hour-segment" [style.height.px]="segmentHeight"
@@ -51,7 +28,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Salvar</button>
       </div>
     </div>
   </div>
@@ -64,7 +40,7 @@
         <div class="card-body">
           <h5 class="card-title">Dr. {{ doctor.name }}</h5>
           <p class="card-text">Especialidade: {{ doctor.specialty }}</p>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agenda">
+          <button type="button" class="btn btn-primary" (click) = "setDoctor(doctor)" data-toggle="modal" data-target="#agenda">
             Ver Agenda
           </button>
         </div>

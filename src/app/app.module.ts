@@ -61,7 +61,7 @@ import { fakeBackendProvider } from './interceptors/fake.interceptor';
       useClass: AuthInterceptor,
       multi: true,
     },
-    fakeBackendProvider
+    fakeBackendProvider,
   ],
   bootstrap: [AppComponent]
 })

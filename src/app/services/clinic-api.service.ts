@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import * as moment from 'moment';
-
 import { AppointmentEntry } from './../models/appoinment-entry';
 import { environment } from './../../environments/environment';
 
@@ -56,4 +54,17 @@ export class ClinicApiService {
       this.apiRoot.concat('clinics/doctor/list/')
     )
   }
+
+  createSpaceConsult(space){
+    return this.http.post(
+      this.apiRoot.concat('schedule/consultation/create/'), space
+    )
+  }
+
+  getSpeciality(id){
+    return this.http.get(
+      this.apiRoot.concat('specialty/get/' + id)
+    )
+  }
+
 }

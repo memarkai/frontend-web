@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
@@ -7,6 +7,9 @@ import * as moment from 'moment';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
+
+    constructor(private http: HttpClient){}
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const { url, method, headers, body } = request;
 
@@ -31,8 +34,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getClinics();
                 case url.endsWith('insurance/list/') && method == 'GET':
                     return getPlans();
-                case url.endsWith('clinics/doctor/list/') && method == 'GET':
-                    return getDoctors();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -116,13 +117,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             saveCollection('openEntries', entries);
 
             return ok();
-        }
-
-        function getDoctors() {
-            return ok([{
-                name: "Marcos Castro de Souza",
-                specialty: "Odontologia"
-            }]);
         }
 
         // localStorage access point
