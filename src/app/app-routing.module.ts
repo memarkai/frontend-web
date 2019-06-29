@@ -10,7 +10,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
 
 const routes: Routes = [
-  {path: 'schedule', component: CalendarComponent, canActivate: [AuthGuard],
+  {path: 'schedule', component: CalendarComponent,
     children:[
       {
         path:  'detail',
@@ -18,10 +18,10 @@ const routes: Routes = [
       }
     ]
   },
-  {path: 'chats', component: ChatComponent, canActivate: [AuthGuard]},
-  {path: 'settings', component: PreferencesComponent, canActivate: [AuthGuard]},
+  {path: 'chats', component: ChatComponent},
+  {path: 'settings', component: PreferencesComponent},
   {path: 'login', component: LoginComponent},
-  {path: '', component: HomeComponent, canActivate: [AuthGuard]}
+  {path: '', component: HomeComponent}
 ];
 
 @NgModule({

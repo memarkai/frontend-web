@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
@@ -7,6 +7,8 @@ import * as moment from 'moment';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
+    private urlBackend = "http://ec2-3-16-1-205.us-east-2.compute.amazonaws.com/api/"
+    constructor(private http: HttpClient){}
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const { url, method, headers, body } = request;
 
@@ -118,11 +120,28 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok();
         }
 
+        function getDoctorsApi(){
+            var doctors: Object[] = [];
+            return this.http.get(
+                this.urlBackend + 'clinics/doctor/list/', {
+                headers: new HttpHeaders(
+                    {
+                    'Authorization': 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNGFkZTJjY2UtMTMyYi00YTQ0LThlNDItOTUxMTJjMTU5ZGRmIn0.phcLfQqEMrIMlvNwTwPMelmcg77esPM7cXYrb5KbeEQ'
+                    }
+                ),
+                } 
+            )
+        }
+
         function getDoctors() {
-            return ok([{
-                name: "Marcos Castro de Souza",
-                specialty: "Odontologia"
-            }]);
+            var doctors: Object[] = []
+             this.getDoctorsApi.subscribe(data =>
+                {
+                    doctors = data;
+                }
+            ) 
+
+            return ok([doctors])
         }
 
         // localStorage access point

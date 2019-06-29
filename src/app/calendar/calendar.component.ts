@@ -63,6 +63,8 @@ export class CalendarComponent implements OnInit {
   locale: string = 'pt';
   startDay: number = 0;
   doctors: any[];
+  currentDoctor: Object = new Object();
+  currentDoctorDTO: Object = new Object();
   error: any;
 
   constructor(
@@ -78,7 +80,11 @@ export class CalendarComponent implements OnInit {
 
   getMyDoctors() {
     this.api.getDoctors().subscribe(
-      success => this.doctors = success as any,
+      success => 
+      {
+        console.log(success)
+        this.doctors = success as any
+      },
       error => this.error = error
     )
   }
@@ -113,11 +119,54 @@ export class CalendarComponent implements OnInit {
     this.events = [...this.events, patientEvent, confirmationEvent];
   }
 
+  getStartDate(segment: DayViewHourSegment){
+    var space: Object = new Object();
+    space['doctor'] = this.currentDoctor['id']; 
+    var day = segment.date.getDate();
+    var monthIndex = segment.date.getMonth();
+    var year = segment.date.getFullYear();
+    var minutes = segment.date.getMinutes();
+    var hours = segment.date.getHours();
+    var seconds = segment.date.getSeconds();
+    var myFormattedDate = day+"/"+(monthIndex+1)+"/"+year+" "+ hours+":"+minutes+":"+seconds;
+    return myFormattedDate;
+  }
+
+  getEndDate(segment: DayViewHourSegment){
+    var space: Object = new Object();
+    space['doctor'] = this.currentDoctor['id']; 
+    var day = segment.date.getDate();
+    var monthIndex = segment.date.getMonth();
+    var year = segment.date.getFullYear();
+    var minutes = segment.date.getMinutes();
+    var hours = segment.date.getHours();
+    var seconds = segment.date.getSeconds();
+    var myFormattedDate = day+"/"+(monthIndex+1)+"/"+year+" "+ hours+":"+minutes+":"+seconds;
+    return myFormattedDate;
+  }
+
   startDragToCreate(
     segment: DayViewHourSegment,
     mouseDownEvent: MouseEvent,
     segmentElement: HTMLElement
   ) {
+
+    let space:Object = new Object();
+    space['startDate'] = this.getStartDate(segment);
+    console.log(space['startDate']);
+    segment.date.setMinutes(segment.date.getMinutes() + 30);
+    let endDate:String = this.getEndDate(segment);
+    console.log(endDate)
+    space["doctor"] = this.currentDoctor["id"];
+    space['endDate'] = endDate;
+    console.log(space);
+
+    var retorno = this.api.createSpaceConsult(space).subscribe(data =>{
+      return true;
+    })
+
+    if(retorno){
+    segment.date.setMinutes(segment.date.getMinutes() - 30);
     const dragToSelectEvent: CalendarEvent = {
       id: this.events.length,
       title: 'Horário Livre',
@@ -158,6 +207,7 @@ export class CalendarComponent implements OnInit {
         }
         this.refresh();
       });
+    }
   }
 
   private refresh() {
@@ -165,4 +215,7 @@ export class CalendarComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
+  setDoctor(doctor){
+    this.currentDoctor = doctor;
+  }
 }

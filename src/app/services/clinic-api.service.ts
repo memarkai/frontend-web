@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import * as moment from 'moment';
@@ -56,4 +56,17 @@ export class ClinicApiService {
       this.apiRoot.concat('clinics/doctor/list/')
     )
   }
+
+  createSpaceConsult(space){
+    return this.http.post(
+      this.apiRoot.concat('schedule/consultation/create/'), space
+    )
+  }
+
+  getSpeciality(id){
+    return this.http.get(
+      this.apiRoot.concat('specialty/get/' + id)
+    )
+  }
+
 }
