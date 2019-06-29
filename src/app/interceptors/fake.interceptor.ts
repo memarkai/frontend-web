@@ -36,6 +36,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getPlans();
                 default:
                     // pass through any requests not handled above
+                    const secureReq = request.clone({
+                        url: request.url.replace('http://', 'https://')
+                    });
                     return next.handle(request);
             }
         }
