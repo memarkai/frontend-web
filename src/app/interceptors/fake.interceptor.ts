@@ -7,8 +7,9 @@ import * as moment from 'moment';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
-    private urlBackend = "http://ec2-3-16-1-205.us-east-2.compute.amazonaws.com/api/"
+
     constructor(private http: HttpClient){}
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const { url, method, headers, body } = request;
 
@@ -33,8 +34,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getClinics();
                 case url.endsWith('insurance/list/') && method == 'GET':
                     return getPlans();
-                case url.endsWith('clinics/doctor/list/') && method == 'GET':
-                    return getDoctors();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -118,30 +117,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             saveCollection('openEntries', entries);
 
             return ok();
-        }
-
-        function getDoctorsApi(){
-            var doctors: Object[] = [];
-            return this.http.get(
-                this.urlBackend + 'clinics/doctor/list/', {
-                headers: new HttpHeaders(
-                    {
-                    'Authorization': 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNGFkZTJjY2UtMTMyYi00YTQ0LThlNDItOTUxMTJjMTU5ZGRmIn0.phcLfQqEMrIMlvNwTwPMelmcg77esPM7cXYrb5KbeEQ'
-                    }
-                ),
-                } 
-            )
-        }
-
-        function getDoctors() {
-            var doctors: Object[] = []
-             this.getDoctorsApi.subscribe(data =>
-                {
-                    doctors = data;
-                }
-            ) 
-
-            return ok([doctors])
         }
 
         // localStorage access point
