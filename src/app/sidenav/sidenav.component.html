@@ -1,10 +1,10 @@
 <nav class="nav flex-column mai-sidebar">
   <div class="nav-logo"></div>
   <div class="nav-divisor"></div>
-  <a class="nav-link active" href="/"><i class="icon ion-md-home"></i> Inicio</a>
-  <a class="nav-link" href="/schedule"><i class="icon ion-md-calendar"></i> Agenda</a>
-  <a class="nav-link" href="/chats"><i class="icon ion-md-chatbubbles"></i> Chat</a>
-  <a class="nav-link" href="/settings"><i class="icon ion-md-settings"></i> Configurações</a>
-  <a class="nav-link" href="#"><i class="icon ion-md-help"></i> Ajuda</a>
-  <a class="nav-link" (click)="doLogOut()" href="/login"><i class="icon ion-md-log-out"></i> Sair</a>
+  <a class="nav-link" routerLink="/" routerLinkActive="active"><i class="icon ion-md-home"></i> Inicio</a>
+  <a class="nav-link" routerLink="/schedule" routerLinkActive="active"><i class="icon ion-md-calendar"></i> Agenda</a>
+  <a class="nav-link" routerLink="/chats" routerLinkActive="active"><i class="icon ion-md-chatbubbles"></i> Chat</a>
+  <a class="nav-link" routerLink="/settings" routerLinkActive="active"><i class="icon ion-md-settings"></i> Configurações</a>
+  <a class="nav-link" routerLink="#" routerLinkActive="active"><i class="icon ion-md-help"></i> Ajuda</a>
+  <a class="nav-link" (click)="doLogOut()" routerLink="/login"><i class="icon ion-md-log-out"></i> Sair</a>
 </nav>
