@@ -10,7 +10,7 @@ import { ClinicApiService } from './../services/clinic-api.service';
 })
 export class HomeComponent implements OnInit {
 
-  entries: AppointmentEntry[];
+  entries: AppointmentEntry[] = [];
   error: any;
 
   constructor(private api: ClinicApiService) { }
@@ -21,7 +21,18 @@ export class HomeComponent implements OnInit {
 
   getEntriesList() {
     this.api.getOpenConsultations().subscribe(
-      success => { debugger; this.entries = success as AppointmentEntry[] },
+      success => { debugger; 
+        success.map(item => {let i = 1;
+          let test:AppointmentEntry= new AppointmentEntry();
+          test = item;
+          test.specialty = "Odontologista";
+          let testDate: Date = new Date();
+          testDate.setDate(testDate.getDate() + i++);
+          testDate.setHours(testDate.getHours() + 2);
+          test.start_date = testDate.toLocaleDateString() + " " + testDate.toLocaleTimeString();
+          this.entries.push(test);
+        })
+       },
       error => this.error = error
     );
   }

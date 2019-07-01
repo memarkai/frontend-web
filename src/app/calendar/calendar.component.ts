@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import ptBr from '@angular/common/locales/pt';
 import { colors } from './colors';
 import { CalendarMonthViewDay } from 'angular-calendar';
@@ -14,10 +14,11 @@ import {
 } from 'angular-calendar';
 import { DayViewHourSegment } from 'calendar-utils';
 import { fromEvent } from 'rxjs';
-import { finalize, takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil, reduce } from 'rxjs/operators';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
 import { registerLocaleData } from '@angular/common';
 import { ClinicApiService } from '../services/clinic-api.service';
+import * as $ from './../../../node_modules/jquery';
 
 registerLocaleData(ptBr)
 
@@ -66,6 +67,7 @@ export class CalendarComponent implements OnInit {
   currentDoctor: Object = new Object();
   currentDoctorDTO: Object = new Object();
   error: any;
+  @ViewChild('myModal') myModal:ElementRef;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -76,6 +78,8 @@ export class CalendarComponent implements OnInit {
     this.getMyDoctors();
     this.startDay = this.viewDate.getDay();
     this.setElementsByDefault();
+    this.api.getClosedConsultations().subscribe(data =>
+      {console.log(data)})
   }
 
   getMyDoctors() {
@@ -98,15 +102,51 @@ export class CalendarComponent implements OnInit {
   }
 
   setElementsByDefault(){
-    const patientEvent: CalendarEvent = {
+    
+      let i = 1;
+      let date: Date = new Date();
+      date.setDate(date.getDate() + i);
+      date.setHours(date.getHours() + i*30);
+      var patientEvent: CalendarEvent = {
       id: this.events.length,
-      title: 'Rodrigo César',
-      start: new Date(),
+      title: 'Consulta Marcada',
+      start: date,
       meta: {
         tmpEvent: true
-      }
-    }
-
+      },
+      color: colors.red,
+      actions: [
+        {
+          label: '<i class="fa fa-fw fa-times"></i>',
+          onClick: ({ event }: { event: CalendarEvent }): void => {
+            this.events = this.events.filter(iEvent => iEvent !== event);
+            console.log('Event deleted', event);
+          }
+        }
+      ]
+    } 
+      let i1 = 0;
+      let date1: Date = new Date();
+      date.setDate(date1.getDate());
+      date.setHours(date1.getMinutes() + 36);
+    var patientEvent2: CalendarEvent = {
+      id: this.events.length,
+      title: 'Consulta Marcada',
+      start:date1 ,
+      meta: {
+        tmpEvent: true
+      },
+      color: colors.red,
+      actions: [
+        {
+          label: '<i class="fa fa-fw fa-times"></i>',
+          onClick: ({ event }: { event: CalendarEvent }): void => {
+            this.events = this.events.filter(iEvent => iEvent !== event);
+            console.log('Event deleted', event);
+          }
+        }
+      ]
+    }    
     const confirmationEvent: CalendarEvent = {
       id: this.events.length,
       title: 'Pendente',
@@ -116,7 +156,7 @@ export class CalendarComponent implements OnInit {
       }
     }
 
-    this.events = [...this.events, patientEvent, confirmationEvent];
+    this.events = [...this.events, patientEvent, patientEvent2,confirmationEvent];
   }
 
   getStartDate(segment: DayViewHourSegment){
@@ -173,7 +213,16 @@ export class CalendarComponent implements OnInit {
       start: segment.date,
       meta: {
         tmpEvent: true
-      }
+      },
+      actions: [
+        {
+          label: '<i class="fa fa-fw fa-times"></i>',
+          onClick: ({ event }: { event: CalendarEvent }): void => {
+            this.events = this.events.filter(iEvent => iEvent !== event);
+            console.log('Event deleted', event);
+          }
+        }
+      ]
     };
     this.events = [...this.events, dragToSelectEvent];
     const segmentPosition = segmentElement.getBoundingClientRect();

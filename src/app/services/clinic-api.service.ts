@@ -24,6 +24,13 @@ export class ClinicApiService {
     );
   }
 
+  getClosedConsultations() {
+    const myId = this.auth.getMyId();
+    return this.http.get(
+      this.apiRoot.concat(`schedule/schedule/consultation/search/closed/`),
+    );
+  }
+
   confirmAppointment(entry: AppointmentEntry) {
     return this.http.post(
       this.apiRoot.concat(`schedule/consultation/candidate/accept/${entry.consultation}/`),
