@@ -189,7 +189,7 @@ export class CalendarComponent implements OnInit {
 
   setDoctor(doctor){
     this.currentDoctor = doctor;
-    this.api.getAppointments(doctor['id'], this.viewDate).subscribe(
+    this.api.getAppointments(doctor['id'], new Date()).subscribe(
       success => {
         const data = success as any[];
         let events = [];
@@ -207,8 +207,8 @@ export class CalendarComponent implements OnInit {
 
           if (item.status == 'closed') {
             eventEntry.color = {
-              primary: '#28a745',
-              secondary: '#155724'
+              primary: '#15572480',
+              secondary: '#28a74580'
             };
           }
 
