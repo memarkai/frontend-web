@@ -11,6 +11,7 @@ import { environment } from './../../environments/environment';
 export class ClinicApiService {
 
   private apiRoot = environment.apiRoot;
+  public error: any;
 
   constructor(
     private http: HttpClient,
@@ -30,7 +31,7 @@ export class ClinicApiService {
       {
         patient: entry.id
       }
-    )
+    );
   }
 
   refuseAppointment(entry: AppointmentEntry) {
@@ -39,37 +40,46 @@ export class ClinicApiService {
       {
         patient: entry.id
       }
-    )
+    );
   }
 
   getClinicInformation(){
     return this.http.get(
       this.apiRoot.concat('clinics/get/')
-    )
+    );
   }
 
   getAllPlans(){
     return this.http.get(
       this.apiRoot.concat('insurance/list/')
-    )
+    );
   }
 
   getDoctors(){
     return this.http.get(
       this.apiRoot.concat('clinics/doctor/list/')
-    )
+    );
   }
 
   createSpaceConsult(space){
     return this.http.post(
       this.apiRoot.concat('schedule/consultation/create/'), space
-    )
+    );
   }
 
   getSpeciality(id){
     return this.http.get(
       this.apiRoot.concat('specialty/get/' + id)
-    )
+    );
   }
 
+  getAppointments (doctor: string, date: any) {
+    const startDate = date.toLocaleDateString('pt-BR');
+    date.setDate(date.getDate() + 6);
+    const endDate = date.toLocaleDateString('pt-BR');
+
+    return this.http.get(
+      this.apiRoot.concat(`schedule/consultation/doctor/list/${doctor}/?startDate=${startDate}&endDate=${endDate}`)
+    );
+  }
 }

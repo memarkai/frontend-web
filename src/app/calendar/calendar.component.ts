@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import ptBr from '@angular/common/locales/pt';
-import { colors } from './colors';
 import { CalendarMonthViewDay } from 'angular-calendar';
 import {
   ChangeDetectionStrategy,
@@ -18,6 +17,7 @@ import { finalize, takeUntil } from 'rxjs/operators';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
 import { registerLocaleData } from '@angular/common';
 import { ClinicApiService } from '../services/clinic-api.service';
+import * as moment from 'moment';
 
 registerLocaleData(ptBr)
 
@@ -59,7 +59,6 @@ export class CalendarComponent implements OnInit {
   viewDate: Date = new Date();
   dragToCreateActive = false;
   events: CalendarEvent[] = [];
-  nomeMedico: string = "Marcos Castro";
   locale: string = 'pt';
   startDay: number = 0;
   doctors: any[];
@@ -75,16 +74,11 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {
     this.getMyDoctors();
     this.startDay = this.viewDate.getDay();
-    this.setElementsByDefault();
   }
 
   getMyDoctors() {
     this.api.getDoctors().subscribe(
-      success => 
-      {
-        console.log(success)
-        this.doctors = success as any
-      },
+      success => this.doctors = success as any,
       error => this.error = error
     )
   }
@@ -95,28 +89,6 @@ export class CalendarComponent implements OnInit {
         event => event.meta.incrementsBadgeTotal
       ).length;
     });
-  }
-
-  setElementsByDefault(){
-    const patientEvent: CalendarEvent = {
-      id: this.events.length,
-      title: 'Rodrigo César',
-      start: new Date(),
-      meta: {
-        tmpEvent: true
-      }
-    }
-
-    const confirmationEvent: CalendarEvent = {
-      id: this.events.length,
-      title: 'Pendente',
-      start: new Date(2019, 5, 24, 13),
-      meta: {
-        tmpEvent: true
-      }
-    }
-
-    this.events = [...this.events, patientEvent, confirmationEvent];
   }
 
   getStartDate(segment: DayViewHourSegment){
@@ -161,15 +133,15 @@ export class CalendarComponent implements OnInit {
     space['endDate'] = endDate;
     console.log(space);
 
-    var retorno = this.api.createSpaceConsult(space).subscribe(data =>{
-      return true;
-    })
+    var retorno = this.api.createSpaceConsult(space).subscribe(
+      data => { return true; }
+    )
 
     if(retorno){
     segment.date.setMinutes(segment.date.getMinutes() - 30);
     const dragToSelectEvent: CalendarEvent = {
       id: this.events.length,
-      title: 'Horário Livre',
+      title: 'Horário Aberto',
       start: segment.date,
       meta: {
         tmpEvent: true
@@ -217,5 +189,35 @@ export class CalendarComponent implements OnInit {
 
   setDoctor(doctor){
     this.currentDoctor = doctor;
+    this.api.getAppointments(doctor['id'], this.viewDate).subscribe(
+      success => {
+        const data = success as any[];
+        let events = [];
+        
+        data.forEach((item) => {
+          const eventEntry: CalendarEvent = {
+            id: this.events.length,
+            title: item.status == 'open' ? 'Consulta aberta' : 'Consulta agendada',
+            start: moment(item['startDate']).toDate(),
+            end: moment(item['endDate']).toDate(),
+            meta: {
+              tmpEvent: false,
+            }
+          }
+
+          if (item.status == 'closed') {
+            eventEntry.color = {
+              primary: '#28a745',
+              secondary: '#155724'
+            };
+          }
+
+          events.push(eventEntry);
+        })
+
+        this.events = [...events];
+      },
+      error => this.error = error
+    );
   }
 }
