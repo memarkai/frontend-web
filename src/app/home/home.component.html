@@ -4,12 +4,12 @@
     <div class="item" *ngFor="let item of entries; let i = index">
         <div class="card pt-1 px-3 bg-light border-0">
           <div class="text-right text-secondary expire-time-font-size">
-            <span>Expira em {{ item.expireTime }} min</span>
+            <span></span>
           </div>
           <div class="border position-relative">
-            <img src="https://picsum.photos/200/200/?v={{ i }}" class="card-img" alt="Nome do Paciente">
+            <img src="https://picsum.photos/200/200/?v={{ item.id }}" class="card-img" alt="Nome do Paciente">
             <div class="bg-info py-2 name-tag">
-              <span>{{ item.patientName }}, {{ item.patientAge }}</span>
+              <span>{{ item.name }}</span>
             </div>
           </div>
           <div class="pt-2 text-primary">
@@ -19,11 +19,12 @@
             </p>
             <p class="card-text">
               <span class="font-weight-bold">Data e hora:</span><br/>
-              <span>{{ item.date | date: "dd/MM/yyyy HH:mm" }}</span>
+              <!-- <span>{{ item.start_date | date: "dd/MM/yyyy HH:mm" }}</span> -->
+              <span>{{ item.start_date }}</span>
             </p>
             <p class="card-text">
               <span class="font-weight-bold">Forma de pagamento:</span><br/>
-              <span>{{ item.paymentMethod }}</span>
+              <span>{{ item.insurance || "N/A" }}</span>
             </p>
           </div>
           <div class="btn-toolbar justify-content-between action-toolbar py-3" role="toolbar" aria-label="Ações de um pedido de agendamento">

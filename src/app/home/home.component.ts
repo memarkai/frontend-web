@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
 
   getEntriesList() {
     this.api.getOpenConsultations().subscribe(
-      success => { this.entries = success as AppointmentEntry[] },
+      success => { debugger; this.entries = success as AppointmentEntry[] },
       error => this.error = error
     );
   }

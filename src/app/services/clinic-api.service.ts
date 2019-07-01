@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { AppointmentEntry } from './../models/appoinment-entry';
+import { AuthService } from './auth.service';
 import { environment } from './../../environments/environment';
 
 @Injectable({
@@ -11,17 +12,21 @@ export class ClinicApiService {
 
   private apiRoot = environment.apiRoot;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private auth: AuthService
+  ) { }
 
   getOpenConsultations() {
+    const myId = this.auth.getMyId();
     return this.http.get(
-      this.apiRoot.concat('schedule/consultation/search/open/'),
+      this.apiRoot.concat(`schedule/consultation/candidate/clinic/list/${myId}/`),
     );
   }
 
   confirmAppointment(entry: AppointmentEntry) {
     return this.http.post(
-      this.apiRoot.concat('schedule/consultation/candidate/accept/'),
+      this.apiRoot.concat(`schedule/consultation/candidate/accept/${entry.consultation}/`),
       {
         patient: entry.id
       }
@@ -30,7 +35,7 @@ export class ClinicApiService {
 
   refuseAppointment(entry: AppointmentEntry) {
     return this.http.post(
-      this.apiRoot.concat('schedule/consultation/candidate/refuse/'),
+      this.apiRoot.concat(`schedule/consultation/candidate/refuse/${entry.consultation}`),
       {
         patient: entry.id
       }

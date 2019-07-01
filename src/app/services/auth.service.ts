@@ -69,6 +69,12 @@ export class AuthService {
     return moment(expiresAt);
   }
 
+  getMyId() {
+    const token = localStorage.getItem(this.tokenStorageKey);
+    const payload = jwtDecode(token) as JWTPayload;
+    return payload.user_id
+  }
+
   isLoggedIn() {
     return this.token !== null; // For now 
     return moment().isBefore(this.getExpiration());
