@@ -125,13 +125,10 @@ export class CalendarComponent implements OnInit {
 
     let space:Object = new Object();
     space['startDate'] = this.getStartDate(segment);
-    console.log(space['startDate']);
     segment.date.setMinutes(segment.date.getMinutes() + 30);
     let endDate:String = this.getEndDate(segment);
-    console.log(endDate)
     space["doctor"] = this.currentDoctor["id"];
     space['endDate'] = endDate;
-    console.log(space);
 
     var retorno = this.api.createSpaceConsult(space).subscribe(
       data => { return true; }
