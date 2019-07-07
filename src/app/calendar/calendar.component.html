@@ -34,6 +34,7 @@
 </div>
 
 <div class="container-fluid">
+  <a routerLink="/schedule/detail">Dev</a>
   <ul class="list-inline">
     <li class="list-inline-item" *ngFor="let doctor of doctors">
       <div class="card">
@@ -47,4 +48,6 @@
       </div>
     </li>
   </ul>
+
+  <router-outlet></router-outlet>
 </div>
