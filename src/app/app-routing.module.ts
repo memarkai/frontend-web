@@ -10,14 +10,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
 
 const routes: Routes = [
-  {path: 'schedule', component: CalendarComponent,
-    children:[
-      {
-        path:  'detail',
-        component:  ScheduleDetailComponent
-      }
-    ]
-  },
+  {path: 'schedule', component: ScheduleDetailComponent,},
   {path: 'chats', component: ChatComponent},
   {path: 'settings', component: PreferencesComponent},
   {path: 'login', component: LoginComponent},

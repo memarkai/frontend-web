@@ -1,0 +1,7 @@
+#scheduler {
+    height: 100%;
+}
+
+#scheduler > .item {
+    width: 30%;
+}

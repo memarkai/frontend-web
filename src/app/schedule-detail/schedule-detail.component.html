@@ -1,1 +1,23 @@
-tenta aqui bença
+<div id="scheduler" class="container-fluid d-flex flex-row justify-content-around flex-nowrap">
+    <div class="item">
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let doctor of doctors">
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">Dr. {{ doctor.name }}</h5>
+                    <p class="card-text">Especialidade: {{ doctor.specialty }}</p>
+                    <button type="button" class="btn btn-primary" (click) = "setDoctor(doctor)" data-toggle="modal" data-target="#agenda">
+                        Ver Agenda
+                    </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="item align-self-center" [ngClass]="{'invisible': calendarInvisible}">
+        html do calendario aqui
+    </div>
+    <div class="item" [ngClass]="{'invisible': scheduleInvisible}">
+        html dos horarios aqui
+    </div>
+  </div>
