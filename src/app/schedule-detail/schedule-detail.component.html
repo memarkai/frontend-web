@@ -47,12 +47,17 @@
         <ul class="list-group striped-list">
             <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of events">
                 {{ item.time }}
-                <button *ngIf="item.available" class="btn text-danger rounded-circle" (click)="removeConsultationSpace(item)">
-                    <i class="icon ion-md-remove-circle"></i>
-                </button>
-                <button *ngIf="!item.available" class="btn text-info rounded-circle" (click)="addConsultationSpace(item)">
-                    <i class="icon ion-md-add-circle"></i>
-                </button>
+                <div class="btn-toolbar">
+                    <button *ngIf="item.candidate" class="btn text-warning rounded-circle" (click)="reschedule(item)">
+                        <i class="icon ion-md-refresh-circle"></i>
+                    </button>
+                    <button *ngIf="item.available" class="btn text-danger rounded-circle" (click)="removeConsultationSpace(item)">
+                        <i class="icon ion-md-remove-circle"></i>
+                    </button>
+                    <button *ngIf="!item.available" class="btn text-info rounded-circle" (click)="addConsultationSpace(item)">
+                        <i class="icon ion-md-add-circle"></i>
+                    </button>
+                </div>
             </li>
         </ul>
     </div>

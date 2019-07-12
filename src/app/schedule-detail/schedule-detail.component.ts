@@ -48,11 +48,16 @@ export class ScheduleDetailComponent implements OnInit {
           const date = new Date(e.startDate);
           this.events[this.timeToIndex(date)].available = true;
           this.events[this.timeToIndex(date)].id = e.consultation;
+          this.events[this.timeToIndex(date)].candidate = e.status == 'closed';
         });
       },
       error => this.error = error
     )
     this.scheduleInvisible = false;
+  }
+
+  reschedule(item) {
+    item.candidate = false;
   }
   
   removeConsultationSpace(item) {
