@@ -36,7 +36,7 @@ ul.striped-list > li:nth-of-type(odd) {
 }
 
 #calendar .month {
-  padding: 70px 25px;
+  padding: 10px 25px;
   width: 100%;
   background: #1abc9c;
   text-align: center;
@@ -53,12 +53,14 @@ ul.striped-list > li:nth-of-type(odd) {
   float: left;
   padding-top: 10px;
   cursor: pointer;
+  padding: 15px 10px;
 }
 
 #calendar .month .next {
   float: right;
   padding-top: 10px;
   cursor: pointer;
+  padding: 15px 10px;
 }
 
 #calendar .weekdays {
