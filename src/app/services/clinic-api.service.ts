@@ -75,7 +75,8 @@ export class ClinicApiService {
 
   getAppointments (doctor: string, date: any) {
     const startDate = date.toLocaleDateString('pt-BR');
-    date.setDate(date.getDate() + 6);
+    date.setFullYear(date.getFullYear(), date.getMonth() + 1, 0);
+    // date.setDate(date.getDate() + 6);
     const endDate = date.toLocaleDateString('pt-BR');
 
     return this.http.get(

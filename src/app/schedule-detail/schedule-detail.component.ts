@@ -9,9 +9,11 @@ import { ClinicApiService } from './../services/clinic-api.service';
 })
 export class ScheduleDetailComponent implements OnInit {
   doctors = [];
+  events = [];
   selectedDoctor: any;
-  selectedDate: any;
-  calendarInvisible = false;
+  selectedDate: Date;
+  startDate: Date;
+  calendarInvisible = true;
   scheduleInvisible = true;
   error: any;
 
@@ -20,6 +22,8 @@ export class ScheduleDetailComponent implements OnInit {
   ngOnInit() {
     this.getMyDoctors();
     this.selectedDate = new Date();
+    this.startDate = new Date();
+    this.startDate.setDate(1);
   }
 
   getMyDoctors() {
@@ -29,4 +33,18 @@ export class ScheduleDetailComponent implements OnInit {
     )
   }
 
+  setDoctor(doctor) {
+    if (doctor == this.selectedDoctor) return;
+
+    this.selectedDoctor = doctor;
+    this.events = [];
+    this.scheduleInvisible = true;
+    this.calendarInvisible = false;
+    this.api.getAppointments(doctor.id, this.startDate).subscribe(
+      success => {
+        this.events = success as any[];
+      },
+      error => this.error = error
+    )
+  }
 }
