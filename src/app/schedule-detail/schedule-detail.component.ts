@@ -40,15 +40,67 @@ export class ScheduleDetailComponent implements OnInit {
   }
 
   getAppointments() {
-    this.events = [];
+    this.resetEvents();
     this.api.getAppointments(this.selectedDoctor.id, this.selectedDate).subscribe(
       success => {
-        debugger;
-        this.events = success as any[];
+        const data = success as any[];
+        data.forEach((e) => {
+          const date = new Date(e.startDate);
+          this.events[this.timeToIndex(date)].available = true;
+          this.events[this.timeToIndex(date)].id = e.consultation;
+        });
       },
       error => this.error = error
     )
     this.scheduleInvisible = false;
+  }
+  
+  removeConsultationSpace(item) {
+    this.api.deleteSpaceConsult(item.id).subscribe(
+      success => this.getAppointments(),
+      error => this.error = error
+    )
+  }
+
+  addConsultationSpace(item) {
+    const temp = item.time.split(':');
+    let startDate = new Date(this.selectedDate.toISOString());
+    startDate.setHours(temp[0]);
+    startDate.setMinutes(temp[1]);
+    startDate.setSeconds(0);
+    let endDate = new Date(startDate.toISOString());
+    endDate.setMinutes(startDate.getMinutes() + 29);
+
+    this.api.createSpaceConsult({
+      doctor: this.selectedDoctor.id,
+      startDate: startDate.toLocaleString('pt-BR'),
+      endDate: endDate.toLocaleString('pt-BR')
+    }).subscribe(
+      success => this.getAppointments(),
+      error => this.error = error
+    )
+  }
+
+  resetEvents() {
+    for (let i=0; i < 48; i++) {
+      this.events[i] = {
+        time: this.indexToTime(i),
+        available: false,
+        candidate: false,
+      }
+    }
+  }
+
+  timeToIndex(date) {
+    let idx = date.getHours() * 2;
+    if (date.getMinutes() > 0) idx += 1;
+    return idx;
+  }
+
+  indexToTime(idx) {
+    let hour = Math.floor(idx/2).toString().padStart(2, '0');
+    let minutes = idx%2? "30":"00";
+    return `${hour}:${minutes}`;
   }
 
   setDoctor(doctor) {

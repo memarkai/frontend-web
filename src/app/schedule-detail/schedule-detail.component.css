@@ -4,6 +4,7 @@
 
 #scheduler > .doctor-list {
     width: 35%;
+    overflow-y: scroll;
 }
 
 #scheduler > .calendar {
@@ -12,6 +13,15 @@
 
 #scheduler > .scheduler {
     width: 25%;
+    overflow-y: scroll;
+}
+
+ul.striped-list li {
+    border-color: #ddd;
+}
+
+ul.striped-list > li:nth-of-type(odd) {
+    background-color: #eee ;
 }
 
 #calendar ul {

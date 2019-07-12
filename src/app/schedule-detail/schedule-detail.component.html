@@ -1,6 +1,6 @@
 <div id="scheduler" class="container-fluid d-flex flex-row justify-content-around flex-nowrap">
     <div class="doctor-list">
-        <ul class="list-group">
+        <ul class="list-group striped-list">
             <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let doctor of doctors">
                 Dr. {{ doctor.name }}
                 <button type="button" class="btn btn-primary" (click) = "setDoctor(doctor)" data-toggle="modal" data-target="#agenda">
@@ -42,11 +42,17 @@
     </div>
     <div class="scheduler" [ngClass]="{'invisible': scheduleInvisible}">
         <div class="text-center">
-            {{ selectedDate | date: "dd/MM/yyyy"}}
+            <h5>{{ selectedDate | date: "dd/MM/yyyy"}}</h5>
         </div>
-        <ul class="list-group">
-            <li class="list-group-item" *ngFor="let item of events">
-                Teste
+        <ul class="list-group striped-list">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of events">
+                {{ item.time }}
+                <button *ngIf="item.available" class="btn text-danger rounded-circle" (click)="removeConsultationSpace(item)">
+                    <i class="icon ion-md-close-circle"></i>
+                </button>
+                <button *ngIf="!item.available" class="btn text-success rounded-circle" (click)="addConsultationSpace(item)">
+                    <i class="icon ion-md-add-circle"></i>
+                </button>
             </li>
         </ul>
     </div>
