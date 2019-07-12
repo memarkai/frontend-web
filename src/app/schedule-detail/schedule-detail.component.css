@@ -1,19 +1,36 @@
 #scheduler {
     height: 100%;
+    width: 100%;
+    margin-left:110px;
 }
 
 #scheduler > .doctor-list {
-    width: 35%;
+    width: 50%;
+    height:50%;
     overflow-y: scroll;
+    display:block;
 }
 
 #scheduler > .calendar {
-    width: 30%;
+    width: 50%;
+    height: 50%;
 }
 
-#scheduler > .scheduler {
-    width: 25%;
+#scheduler > table > tbody > tr > td > .scheduler {
+    width: 50%;
+    height:80%;
     overflow-y: scroll;
+}
+#schedulerTable {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom:0px;
+}
+
+#schedulerTable > tbody > tr > td {
+  height: 100%;
+  width: 50%;
 }
 
 ul.striped-list li {
