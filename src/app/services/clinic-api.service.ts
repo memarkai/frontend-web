@@ -75,9 +75,10 @@ export class ClinicApiService {
 
   getAppointments (doctor: string, date: any) {
     const startDate = date.toLocaleDateString('pt-BR');
-    date.setFullYear(date.getFullYear(), date.getMonth() + 1, 0);
+    // date.setFullYear(date.getFullYear(), date.getMonth() + 1, 0);
     // date.setDate(date.getDate() + 6);
-    const endDate = date.toLocaleDateString('pt-BR');
+    let endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    endDate = date.toLocaleDateString('pt-BR');
 
     return this.http.get(
       this.apiRoot.concat(`schedule/consultation/doctor/list/${doctor}/?startDate=${startDate}&endDate=${endDate}`)
