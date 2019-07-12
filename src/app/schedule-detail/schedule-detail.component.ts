@@ -48,7 +48,7 @@ export class ScheduleDetailComponent implements OnInit {
           const date = new Date(e.startDate);
           this.events[this.timeToIndex(date)].available = true;
           this.events[this.timeToIndex(date)].id = e.consultation;
-          this.events[this.timeToIndex(date)].candidate = e.status == 'closed';
+          this.events[this.timeToIndex(date)].candidate = e.patient;
         });
       },
       error => this.error = error
