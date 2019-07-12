@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { HomeComponent } from './home/home.component';
-import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 import { LoginComponent } from './login/login.component';
@@ -33,7 +32,6 @@ import { fakeBackendProvider } from './interceptors/fake.interceptor';
     SidenavComponent,
     TopbarComponent,
     HomeComponent,
-    CalendarComponent,
     ChatComponent,
     PreferencesComponent,
     LoginComponent,
